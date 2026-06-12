@@ -1,0 +1,72 @@
+{
+  "version": "1.0.0",
+  "description": "个股分析专家团 - 子agent注册表。在此文件中添加/移除agent即可扩展团队。",
+  "leadAgent": {
+    "id": "stock-partner-lead",
+    "file": "stock-partner-team/agents/stock-partner-lead.md",
+    "name": { "zh": "圆汇众", "en": "Yuan" },
+    "title": { "zh": "投研主编", "en": "Research Editor" },
+    "avatar": "stock-partner-team/avatars/stock-partner-lead.png"
+  },
+  "memberAgents": [
+    {
+      "id": "industry-strategist",
+      "file": "stock-partner-team/agents/industry-strategist.md",
+      "name": { "zh": "星望远", "en": "Xing" },
+      "title": { "zh": "产业策略师", "en": "Industry Strategist" },
+      "avatar": "stock-partner-team/avatars/industry-strategist.png",
+      "emoji": "🌊",
+      "enabled": true
+    },
+    {
+      "id": "signal-chief",
+      "file": "stock-partner-team/agents/signal-chief.md",
+      "name": { "zh": "洲四方", "en": "Zhou" },
+      "title": { "zh": "信号派首席", "en": "Signal Chief" },
+      "avatar": "stock-partner-team/avatars/signal-chief.png",
+      "emoji": "📡",
+      "enabled": true
+    },
+    {
+      "id": "valuation-analyst",
+      "file": "stock-partner-team/agents/valuation-analyst.md",
+      "name": { "zh": "文衡价", "en": "Wen" },
+      "title": { "zh": "估值分析师", "en": "Valuation Analyst" },
+      "avatar": "stock-partner-team/avatars/valuation-analyst.png",
+      "emoji": "🧮",
+      "enabled": true
+    },
+    {
+      "id": "contrarian-investor",
+      "file": "stock-partner-team/agents/contrarian-investor.md",
+      "name": { "zh": "坤候底", "en": "Kun" },
+      "title": { "zh": "逆向投资人", "en": "Contrarian Investor" },
+      "avatar": "stock-partner-team/avatars/contrarian-investor.png",
+      "emoji": "🏔️",
+      "enabled": true
+    },
+    {
+      "id": "fundamental-researcher",
+      "file": "stock-partner-team/agents/fundamental-researcher.md",
+      "name": { "zh": "钊审财", "en": "Zhao" },
+      "title": { "zh": "财报研究员", "en": "Fundamental Researcher" },
+      "avatar": "stock-partner-team/avatars/fundamental-researcher.png",
+      "emoji": "🔬",
+      "enabled": true
+    },
+    {
+      "id": "shortterm-surfer",
+      "file": "stock-partner-team/agents/shortterm-surfer.md",
+      "name": { "zh": "磊追浪", "en": "Lei" },
+      "title": { "zh": "短线冲浪手", "en": "Shortterm Surfer" },
+      "avatar": "stock-partner-team/avatars/shortterm-surfer.png",
+      "emoji": "⚡",
+      "enabled": true
+    }
+  ],
+  "instructions": {
+    "addAgent": "在 memberAgents 数组中新增一个条目，id 必须与 stock-partner-team/agents/<id>.md 文件名一致。新agent的.md文件需包含完整的角色定义（参考现有agent文件结构）。",
+    "removeAgent": "将对应条目的 enabled 设为 false，或直接从数组中删除。",
+    "disableAgent": "将 enabled 设为 false，该agent将在后续分析中被跳过。"
+  }
+}
