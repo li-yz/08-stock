@@ -154,6 +154,52 @@ westock-data 不可用时，使用 `WebSearch` 工具搜索实时数据。所有
 
 ---
 
+## 分支管理
+
+仓库采用双分支策略，按平台分离绝对路径：
+
+| 分支 | 平台 | 绝对路径前缀 |
+|------|------|-------------|
+| `main` | Windows | `D:\08-stock\...` |
+| `mac` | macOS | `/Users/clawmini/Work/01_Projects/08-stock/...` |
+
+### 功能变更同步流程
+
+在 `main` 完成功能开发并 commit 后，执行以下步骤同步到 `mac`：
+
+```bash
+# 1. 切到 mac 分支
+git checkout mac
+
+# 2. 合并 main 的变更
+git merge main
+
+# 3. 处理冲突（路径差异）
+#    将冲突文件中所有 D:\08-stock\ 替换为
+#    /Users/clawmini/Work/01_Projects/08-stock/
+#    注意：mac 分支历史惯例，文件分隔符用 \ 而非 /
+
+# 4. 验证无残留 Windows 路径
+grep -r "D:\\\\08-stock" --include="*.md" .
+
+# 5. 提交合并并推送
+git add .
+git commit -m "merge: <功能描述> from main into mac"
+git push origin mac
+
+# 6. 切回 main
+git checkout main
+```
+
+### 注意事项
+
+- **相对路径**（如 `stock-partner-team/agents/`、`../skills/`）跨平台通用，无需转换
+- **新增的 agent .md 文件**通常不含绝对路径，可直接合并
+- `agent-registry.json` 使用相对路径，两分支内容应保持一致
+- 本节点（「分支管理」章节）两分支内容完全相同，合并时不应产生冲突
+
+---
+
 ## 免责声明
 
 每次分析输出末尾必须附：
