@@ -145,7 +145,7 @@ westock-data 不可用时，使用 `WebSearch` 工具搜索实时数据。所有
 
 当前agent注册表：`D:\08-stock\stock-partner-team\agent-registry.json`
 
-**新增子agent**（2步）：
+**新增子agent**（3步）：
 1. 在 `D:\08-stock\stock-partner-team\agents\` 下新建 `<agent-id>.md`，包含完整的角色定义（参考现有agent的文件结构）
 2. 在 `D:\08-stock\stock-partner-team\agent-registry.json` 的 `memberAgents` 数组中添加对应条目
 3. 若新增的是元流程角色（如红牌挑战者），还需在 `stock-partner-lead.md` 的「红牌挑战流程」或对应章节中定义其调用时机与约束
