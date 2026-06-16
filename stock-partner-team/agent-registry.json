@@ -62,6 +62,16 @@
       "avatar": "stock-partner-team/avatars/shortterm-surfer.png",
       "emoji": "⚡",
       "enabled": true
+    },
+    {
+      "id": "redcard-challenger",
+      "file": "stock-partner-team/agents/redcard-challenger.md",
+      "name": { "zh": "赫问真", "en": "He Wenzhen" },
+      "title": { "zh": "红牌挑战者", "en": "Red Card Challenger" },
+      "avatar": "stock-partner-team/avatars/redcard-challenger.png",
+      "emoji": "🟥",
+      "enabled": true,
+      "note": "元流程角色——在圆桌初步汇编后调用，对投资结论进行系统性逆向质询。不作为第7个投资专家参与并行调度。"
     }
   ],
   "instructions": {

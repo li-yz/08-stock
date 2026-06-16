@@ -64,7 +64,7 @@ Read `/Users/clawmini/Work/01_Projects/08-stock/stock-partner-team\agents\stock-
 
 ```
 subagent_type: "general-purpose"
-description: "<agent-id>"  （如 "industry-strategist"、"valuation-analyst" 等）
+description: "<agent-id>"  （如 "industry-strategist"、"valuation-analyst"、"redcard-challenger" 等）
 prompt: 包含三部分 —
   1. 该agent的完整角色定义（从 /Users/clawmini/Work/01_Projects/08-stock/stock-partner-team\agents\<agent-id>.md 读取的内容）
   2. 本轮任务说明（用户原话 + 该成员负责的研究维度 + 工具优先级）
@@ -75,13 +75,31 @@ prompt: 包含三部分 —
 - 所有子agent必须在同一条消息中并行 spawn，禁止串行（先调X再调Y会带偏）
 - 每个子agent独立查询数据、独立分析，不依赖其他agent的结论
 - 禁止主理人代写任何子agent的专业产出
+- ⚠️ **红牌挑战者（redcard-challenger）不在本步并行调度**——它是第5.5步的元流程角色，在圆桌初稿汇编完成后单独调用
 
 ### 第5步：收集与汇编
 
 所有子agent回传后：
 1. Read 每个子agent回传的md报告全文
-2. 按 `/Users/clawmini/Work/01_Projects/08-stock/stock-partner-team\agents\stock-partner-lead.md` 的「结果汇编」规范，产出圆桌报告
-3. 圆桌报告必须包含4个模块：结论卡 → 子专家观点 → 深度思考 → 后续关注
+2. 按 `/Users/clawmini/Work/01_Projects/08-stock/stock-partner-team\agents\stock-partner-lead.md` 的「结果汇编」规范，产出**圆桌报告初稿**
+3. 圆桌报告初稿必须包含4个模块：结论卡 → 子专家观点 → 深度思考 → 后续关注
+
+### 第5.5步：红牌挑战（元流程）
+
+圆桌报告初稿产出后，**必须**启动红牌挑战者对投资结论进行系统性逆向质询。此步骤不可跳过。
+
+1. Read `/Users/clawmini/Work/01_Projects/08-stock/stock-partner-team\agents\redcard-challenger.md` 获取红牌挑战者完整角色定义
+2. 通过 Agent 工具单独 spawn 红牌挑战者（不与第4步的6位专家并行）：
+   ```
+   subagent_type: "general-purpose"
+   description: "redcard-challenger"
+   prompt: 包含 —
+     1. 红牌挑战者完整角色定义（从 agents\redcard-challenger.md 读取）
+     2. 圆桌报告初稿全文 + 用户原始问题
+     3. 产出要求：按6协议框架产出质询报告，将完整 md 直接回传
+   ```
+3. 收到质询报告后：逐条回应致命/重大质询 → 修正圆桌报告 → 在模块3新增「3c · 红牌挑战回响」小节
+4. 详细流程与约束见 `/Users/clawmini/Work/01_Projects/08-stock/stock-partner-team\agents\stock-partner-lead.md` 的「红牌挑战流程」章节
 
 ### 第6步：交付
 
@@ -127,9 +145,10 @@ westock-data 不可用时，使用 `WebSearch` 工具搜索实时数据。所有
 
 当前agent注册表：`/Users/clawmini/Work/01_Projects/08-stock/stock-partner-team\agent-registry.json`
 
-**新增子agent**（2步）：
-1. 在 `/Users/clawmini/Work/01_Projects/08-stock/stock-partner-team\agents\` 下新建 `<agent-id>.md`，包含完整的角色定义（参考现有6个agent的文件结构）
+**新增子agent**（3步）：
+1. 在 `/Users/clawmini/Work/01_Projects/08-stock/stock-partner-team\agents\` 下新建 `<agent-id>.md`，包含完整的角色定义（参考现有agent的文件结构）
 2. 在 `/Users/clawmini/Work/01_Projects/08-stock/stock-partner-team\agent-registry.json` 的 `memberAgents` 数组中添加对应条目
+3. 若新增的是元流程角色（如红牌挑战者），还需在 `stock-partner-lead.md` 的「红牌挑战流程」或对应章节中定义其调用时机与约束
 
 **移除/禁用子agent**：将 `/Users/clawmini/Work/01_Projects/08-stock/stock-partner-team\agent-registry.json` 中对应条目的 `enabled` 设为 `false`。主理人在第3步读取注册表时自动跳过 disabled agent。
 
